@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.spacer{
+  margin-top: 30px !important;
+}
+
+.table-header{
+  color: #000 !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.nav-link{
+  color:white;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-right: 20px;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
