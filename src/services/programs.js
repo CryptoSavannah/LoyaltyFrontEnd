@@ -11,6 +11,7 @@ export const getPrograms = async () => {
         const {status, data} = await axios.get(`${url}/loyalty/programs`, {
             headers: {Authorization: AuthStr}
         })
+        console.log( 'programs api status:' + status)
         if(status===200){
             return data.data
         // } else{

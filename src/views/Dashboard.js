@@ -28,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const Dashboard = () => {
+export const Dashboard = (props) => {
     const classes = useStyles();
     const [bestPerforming, setBestPerforming] = useState([])
     const [worstPerforming, setWorstPerforming] = useState([])
 
     useEffect(() => {
+        // console.log('props: '+ JSON.stringify(props))
         setBestPerforming([
             {
                 "id":"1",
@@ -103,7 +104,7 @@ export const Dashboard = () => {
 
     return(
         <div className={classes.root}>
-            <MiniDrawer/>
+            <MiniDrawer props={props}/>
 
             <main className={classes.content}>
                 <div className={classes.toolbar} />

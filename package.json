@@ -5,13 +5,14 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "0.9.x"
+    "react-scripts": "0.9.x",
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {},
   "scripts": {

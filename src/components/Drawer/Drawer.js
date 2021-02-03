@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, fade } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -155,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function MiniDrawer() {
+export default function MiniDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [openDrawer, setOpenDrawer] = React.useState(false);
@@ -164,6 +164,11 @@ export default function MiniDrawer() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+            // console.log('props: '+ JSON.stringify(props.props.history))
+
+  })
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -190,6 +195,13 @@ export default function MiniDrawer() {
     setOpenDrawer(false);
   };
 
+  const logout = () => {
+    localStorage.clear("token");
+    localStorage.clear("tenant")
+    props.props.history.push("/")
+    // handleMenuClose();
+  }
+
   const menuId = 'primary-search-account-menu';
 
   const renderMenu = (
@@ -202,8 +214,7 @@ export default function MiniDrawer() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={e => {logout()}}>Logout</MenuItem>
     </Menu>
   );
 
@@ -287,16 +298,6 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -356,21 +357,6 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
             <ListItem>
                 <Link className={classes.link} to="/users">
                     <ListItemIcon><GroupIcon/> <ListItemText className={classes.linkName} primary="Users" />
-                    </ListItemIcon> 
-                </Link>
-            </ListItem>
-        </List>
-        <Divider />
-        <List>
-            {/* <ListItem>
-                <Link className={classes.link} to="/partnerships">
-                    <ListItemIcon><InboxIcon/>< ListItemText className={classes.linkName} primary="Partnerships"/>
-                    </ListItemIcon> 
-                </Link>
-            </ListItem> */}
-            <ListItem>
-                <Link className={classes.link} to="/settings">
-                    <ListItemIcon><ViewWeekIcon/> <ListItemText className={classes.linkName} primary="Settings"/>
                     </ListItemIcon> 
                 </Link>
             </ListItem>
