@@ -7,12 +7,13 @@ const token = localStorage.getItem("token");
 const AuthStr = 'Bearer '.concat(token);
 
 export const getPrograms = async () => {
-    try{
-        const {status, data} = await axios.get(`${url}/loyalty/programs`, {
+    try{// ...need to check if this API actually works
+        const {status, data} = await axios.get(`${url}/loyalty/1/programs`, {
             headers: {Authorization: AuthStr}
         })
-        console.log( 'programs api status:' + status)
+        console.log( 'programs api token:' + token)
         if(status===200){
+            console.log( 'programs :' + JSON.stringify(data.data))
             return data.data
         // } else{
         //     return {"status": 404, "error": "Not Found"}
