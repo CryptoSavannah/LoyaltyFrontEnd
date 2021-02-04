@@ -7,17 +7,18 @@ const token = localStorage.getItem("token");
 const AuthStr = 'Bearer '.concat(token);
 
 export const getLoyaltyTransactions = async () => {
-    try{
-        const {status, data} = await axios.get(`${url}/loyalty/2/transactions`, {
-            headers: {Authorization: AuthStr}
+    try {
+        const { status, data } = await axios.get(`${url}/loyalty/2/transactions`, {
+            headers: { Authorization: AuthStr }
         })
-        if(status===200){
+        if (status === 200) {
+            console.log('Tx api data:' + data.data)
             return data.data
-        // } else{
-        //     return {"status": 404, "error": "Not Found"}
+            // } else{
+            //     return {"status": 404, "error": "Not Found"}
         }
-    }catch(err) {
+    } catch (err) {
         console.log(err)
-        return {"status": 500, "error": "Server Error"}
+        return { "status": 500, "error": "Server Error" }
     }
 }
