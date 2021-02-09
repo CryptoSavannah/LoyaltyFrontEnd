@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import MiniDrawer from '../components/Drawer/Drawer';
 import PlainNavInfo from '../components/Nav/PlainNavInfo'
 import SimpleCard from '../components/Cards/SimpleCard'
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import SimpleTable from '../components/Tables/SimpleTable';
 import { makeStyles } from '@material-ui/core/styles';
-import Donut from '../components/Charts/donut';
+import LineChart from '../components/Charts/line';
 import BarChart from '../components/Charts/bar';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -35,86 +36,47 @@ const token = localStorage.getItem("token");
 
 export const Dashboard = (props) => {
   const classes = useStyles();
-  const [bestPerforming, setBestPerforming] = useState([])
-  const [worstPerforming, setWorstPerforming] = useState([])
+  const [loadingPrograms, setLoadingPrograms] = useState(true)
+  const [loadingTotalUsers, setLoadingTotalUsers] = useState(true)
+  const [loadingTTAwardeded, setLoadingTTAwardeded] = useState(true)
+  const [loadingTTRedeemed, setLoadingTTRedeemed] = useState(true)
+
   const [allPrograms, setAllPrograms] = useState(0)
   const [totalUsers, setTotalUsers] = useState(0)
-  const [totalSales, setTotalSales] = useState(0)
   const [pointsAwardeded, setPointsAwardeded] = useState(0)
+  const [pointsRedeemed, setPointsRedeemed] = useState(0)
 
-  useEffect(async () => {
-    
-    setAllPrograms((await getPrograms()).length);
-    setTotalUsers((await getLoyaltyUsers()).length);
-    setTotalSales((await getLoyaltyTransactions()).length);
-    setPointsAwardeded((await getLoyaltyUsers()).length);
+  useEffect(() => {
 
-    setBestPerforming([
-      {
-        "id": "1",
-        "branch": "Najeera",
-        "points": "30,000"
-      },
-      {
-        "id": "2",
-        "branch": "Munyonyo",
-        "points": "30,000"
-      }
-    ])
-
-    setWorstPerforming([
-      {
-        "id": "1",
-        "branch": "Maya",
-        "points": "3000"
-      },
-      {
-        "id": "2",
-        "branch": "Kasokoso",
-        "points": "200"
-      }
-    ])
-
-  }, [])
-
-  const constructBestTable = () => {
-    if (bestPerforming === undefined || bestPerforming.length === 0) {
-      return <p>Loading...</p>
-    } else {
-      return bestPerforming.map((row) => (
-        <TableRow key={row.id}>
-          <TableCell component="th" scope="row">
-            {row.id}
-          </TableCell>
-          <TableCell component="th" scope="row">
-            {row.branch}
-          </TableCell>
-          <TableCell align="right">{row.points}</TableCell>
-          <TableCell align="right">{row.Contact}</TableCell>
-        </TableRow>
-      )
-      )
+    const fetchedTotalUsers = async () => {
+      setTotalUsers((await getLoyaltyUsers()).length);
+      setLoadingPrograms(false);
     }
-  }
 
-  const constructWorstTable = () => {
-    if (worstPerforming === undefined || worstPerforming.length === 0) {
-      return <p>Loading...</p>
-    } else {
-      return worstPerforming.map((row) => (
-        <TableRow key={row.id}>
-          <TableCell component="th" scope="row">
-            {row.id}
-          </TableCell>
-          <TableCell component="th" scope="row">
-            {row.branch}
-          </TableCell>
-          <TableCell align="right">{row.points}</TableCell>
-        </TableRow>
-      )
-      )
+    const fetchedPrograms = async () => {
+      setAllPrograms((await getPrograms()).length);
+      setLoadingTotalUsers(false);
+
     }
-  }
+    const fetchedPointsRedeemed = async () => {
+      // setPointsRedeemed(await getPrograms());
+      // console.log('users: ' + await getLoyaltyUsers())
+      setLoadingTTRedeemed(false);
+
+    }
+    const fetchedPointsAwardeded = async () => {
+      // setPointsAwardeded(await getPrograms());
+      // console.log('users: ' + await getLoyaltyUsers())
+      setLoadingTTAwardeded(false);
+
+    }
+
+    fetchedTotalUsers();
+    fetchedPrograms();
+    fetchedPointsAwardeded();
+    fetchedPointsRedeemed();
+
+  }, [allPrograms, pointsAwardeded, totalUsers, pointsRedeemed])
 
   return (
     <div className={classes.root}>
@@ -123,39 +85,38 @@ export const Dashboard = (props) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        <Grid container>
-          <Grid container spacing={3}>
-            <Grid item xs={6} sm={3}>
-              <SimpleCard name="All Programs" figure={allPrograms} label="all programs" />
+        <Grid container justify="center" alignItems="center">
+          <Grid container spacing={3}
+            justify="center" alignItems="center">
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" /> :
+                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" />
+              }
+
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <SimpleCard name="Total Users" figure={totalUsers} label="all users" />
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" /> :
+                <SimpleCard name="Total Users" figure={totalUsers} label="all users" />
+              }
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <SimpleCard name="Total Sales" figure={totalSales} label="total sales" />
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" /> :
+                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total sales" />
+              }
             </Grid>
-            <Grid item xs={6} sm={3}>
-              <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total points awarded" />
+            <Grid item xs={12} sm={6} md={3} lg={3}>
+              {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" /> :
+                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" />
+              }
             </Grid>
           </Grid>
 
-          <Grid container className="spacer" spacing={3}>
-            <Grid item md={6} lg={6} sm={12}>
-              <Donut />
-            </Grid>
+          <Grid container className="spacer" spacing={3} justify="center" alignItems="center">
             <Grid item md={6} lg={6} sm={12}>
               <BarChart />
             </Grid>
-          </Grid>
-
-          <Grid container className="spacer" spacing={3}>
             <Grid item md={6} lg={6} sm={12}>
-              <PlainNavInfo title="Best Performing Branches" />
-              <SimpleTable idcolumn="#" column1="Branch" column2="Total Points" rows={constructBestTable()} />
-            </Grid>
-            <Grid item md={6} lg={6} sm={12}>
-              <PlainNavInfo title="Worst Performing Branches" />
-              <SimpleTable idcolumn="#" column1="Branch" column2="Total Points" rows={constructWorstTable()} />
+              <LineChart />
             </Grid>
           </Grid>
         </Grid>

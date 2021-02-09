@@ -8,7 +8,7 @@ const data = {
   labels: ['February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'Monthly Points Breakdown(Thousands)',
+      label: 'Monthly Users Breakdown',
       backgroundColor: 'rgba(255,99,132,0.2)',
       borderColor: 'rgba(255,99,132,1)',
       borderWidth: 1,
@@ -25,7 +25,7 @@ export default function BarChart(){
         <Card>
             <CardContent>
             <Typography>
-                    Average Monthly Points Breakdown
+                    Average Users' Subcription
             </Typography>
             <Bar data={data} />
             </CardContent>
