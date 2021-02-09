@@ -106,8 +106,6 @@ export const Programs = (props) => {
             setPartners(await getPartnerships());
         } 
 
-        
-
         const fetchedPrograms = async () => {
             setPrograms(await getPrograms());
         } 
@@ -124,7 +122,8 @@ export const Programs = (props) => {
         fetchedPartnerships();
         fetchedPrograms();
 
-    }, [])
+    }, [partners, programs])
+
 
     const fetchProgramDetails = () => {
         props.history.push("/programs/overview")
@@ -205,13 +204,13 @@ export const Programs = (props) => {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Grid container spacing={3}>
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={6} sm={3} md={3} >
                         <SimpleCard name="Active Programs" figure="3" label="all programs"/>
                     </Grid>
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={6} sm={3} md={3} >
                         <SimpleCard name="Active Partnerships" figure="2" label="active partnerships"/>
                     </Grid>
-                    <Grid item xs={6} sm={3}>
+                    <Grid item xs={6} sm={3} md={3} >
                         <SimpleCard name="Total % Return" figure="70%" label="percentage return"/>
                     </Grid>
                 </Grid>

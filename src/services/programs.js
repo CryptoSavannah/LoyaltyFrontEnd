@@ -11,9 +11,9 @@ export const getPrograms = async () => {
         const {status, data} = await axios.get(`${url}/loyalty/1/programs`, {
             headers: {Authorization: AuthStr}
         })
-        console.log( 'programs api token:' + token)
+        // console.log( 'programs api token:' + token)
         if(status===200){
-            console.log( 'programs :' + JSON.stringify(data.data))
+            // console.log( 'programs :' + JSON.stringify(data.data))
             return data.data
         // } else{
         //     return {"status": 404, "error": "Not Found"}

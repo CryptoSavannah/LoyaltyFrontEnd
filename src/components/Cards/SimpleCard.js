@@ -8,11 +8,13 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    // minWidth: 275,
+    // justifyContent: 'center'
+    alignSelf: 'center'
 
   },
   title: {
-    fontSize: 14,
+    fontSize: 12,
   },
   pos: {
     marginBottom: 12,
@@ -28,7 +30,7 @@ export default function SimpleCard(props) {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {props.name}
         </Typography>
-        <Typography variant="h1" component="h2">
+        <Typography variant="h3" component="h3">
           {props.figure}
         </Typography>
         <Typography variant="body2" component="p">
