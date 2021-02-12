@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {BusinessCenter, CardGiftcard, Redeem, Loyalty}  from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +27,7 @@ export default function SimpleCard(props) {
 
   return (
     <Card className={classes.root}>
-      <CardContent>
+      <CardContent style={{backgroundColor: props.color}}>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           {props.name}
         </Typography>
