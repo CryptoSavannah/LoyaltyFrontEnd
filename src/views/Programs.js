@@ -101,14 +101,10 @@ export const Programs = (props) => {
     }
 
 
-    useEffect(() => {
-        const fetchedPartnerships = async () => {
+    useEffect(async () => {
             setPartners(await getPartnerships());
-        } 
-
-        const fetchedPrograms = async () => {
             setPrograms(await getPrograms());
-        } 
+            // console.log("Programs in P :" + await getPrograms());
 
         setProducts(
             [
@@ -119,11 +115,7 @@ export const Programs = (props) => {
             ]
         )
 
-        fetchedPartnerships();
-        fetchedPrograms();
-
-    }, [partners, programs])
-
+    }, [])
 
     const fetchProgramDetails = () => {
         props.history.push("/programs/overview")

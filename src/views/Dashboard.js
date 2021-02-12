@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import MiniDrawer from '../components/Drawer/Drawer';
 import PlainNavInfo from '../components/Nav/PlainNavInfo'
 import SimpleCard from '../components/Cards/SimpleCard'
@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { getPrograms } from '../services/programs';
 import { getLoyaltyTransactions } from '../services/program_transactions';
 import { getLoyaltyUsers } from '../services/accounts';
+import { SnackbarContext } from '../context/SnackbarContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 const token = localStorage.getItem("token");
 
 export const Dashboard = (props) => {
+  const { snack, setSnack } = useContext(SnackbarContext);
   const classes = useStyles();
   const [loadingPrograms, setLoadingPrograms] = useState(true)
   const [loadingTotalUsers, setLoadingTotalUsers] = useState(true)
@@ -76,6 +78,8 @@ export const Dashboard = (props) => {
     fetchedPointsAwardeded();
     fetchedPointsRedeemed();
 
+    setSnack({ message: 'successfuly loaded data', open: true})
+
   }, [allPrograms, pointsAwardeded, totalUsers, pointsRedeemed])
 
   return (
@@ -86,27 +90,26 @@ export const Dashboard = (props) => {
         <div className={classes.toolbar} />
 
         <Grid container justify="center" alignItems="center">
-          <Grid container spacing={3}
-            justify="center" alignItems="center">
+          <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" /> :
-                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" />
+              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" color="rgb(231,67,133,.5)" /> :
+                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" color="rgb(231,67,133,.5)" />
               }
 
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" /> :
-                <SimpleCard name="Total Users" figure={totalUsers} label="all users" />
+              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" color="rgb(250,197,26,.5)" /> :
+                <SimpleCard name="Total Users" figure={totalUsers} label="all users" color="rgb(250,197,26,.5)" />
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" /> :
-                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total sales" />
+              {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" color="rgb(8,188,212,.5)" /> :
+                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total Points Awarded" color="rgb(8,188,212,.5)" />
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" /> :
-                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" />
+              {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" color="rgb(77,173,81,.5)" /> :
+                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" color="rgb(77,173,81,.5)" />
               }
             </Grid>
           </Grid>
