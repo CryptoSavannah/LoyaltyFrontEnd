@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleTable from '../components/Tables/SimpleTable'
 import Grid from '@material-ui/core/Grid';
@@ -16,23 +16,23 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import {getPartnerships} from '../services/partnerships';
-import {getPrograms, createProgram, getProgramDetails, deleteProgram} from '../services/programs';
+import { getPartnerships } from '../services/partnerships';
+import { getPrograms, createProgram, getProgramDetails, deleteProgram } from '../services/programs';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     },
     toolbar: {
         display: 'flex',
@@ -67,7 +67,7 @@ export const Programs = (props) => {
     const handleOpen = () => {
         setOpen(true);
     };
-    
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -75,7 +75,7 @@ export const Programs = (props) => {
     const handleOpenDelete = () => {
         setOpenDeleteModal(true);
     };
-    
+
     const handleCloseDelete = () => {
         setOpenDeleteModal(false);
     };
@@ -102,9 +102,9 @@ export const Programs = (props) => {
 
 
     useEffect(async () => {
-            setPartners(await getPartnerships());
-            setPrograms(await getPrograms());
-            // console.log("Programs in P :" + await getPrograms());
+        setPartners(await getPartnerships());
+        setPrograms(await getPrograms());
+        // console.log("Programs in P :" + await getPrograms());
 
         setProducts(
             [
@@ -125,8 +125,8 @@ export const Programs = (props) => {
     //Submit user data
     const submitProgramData = async () => {
         const userdata = await createProgram(programName, productsAttached, programPercentage, startDate, dueDate)
-        
-        if(userdata.status===400){
+
+        if (userdata.status === 400) {
             setOpen(false);
             location.reload()
             return false
@@ -136,19 +136,19 @@ export const Programs = (props) => {
         return true
     }
 
-    const pickProgramForDelete = async(id) => {
+    const pickProgramForDelete = async (id) => {
         const deletedProgram = await getProgramDetails(id)
-        if(deleteProgram.status==404){
+        if (deleteProgram.status == 404) {
             console.log("failed")
             return false
-        } 
+        }
         setProgramToDelete(deletedProgram.id)
         return true
     }
 
-    const executeDeleteProgram = async(id) => {
+    const executeDeleteProgram = async (id) => {
         const programDelete = await deleteProgram(id)
-        if(programDelete.status==404){
+        if (programDelete.status == 404) {
             console.log("failed")
             return false
         }
@@ -157,61 +157,67 @@ export const Programs = (props) => {
     }
 
     const constructTable = () => {
-        if (programs === undefined || programs.length === 0){
+        if (programs === undefined || programs.length === 0) {
             return <p>Loading...</p>
-        }else{
-            return programs.map((row) => (
-                <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                    {row.id}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                    {row.program_name}
-                </TableCell>
-                <TableCell align="right">{row.products_attached}</TableCell>
-                <TableCell align="right">{row.program_partner}</TableCell>
-                <TableCell align="right">{row.program_percentage}</TableCell>
-                <TableCell align="right">1000</TableCell>
-                <TableCell align="right">
-                <Button variant="outlined" color="primary">Edit Program</Button>
-                    <Button variant="outlined" color="default" onClick={
-                            e=>{
-                                fetchProgramDetails()
-                            }
-                        }>View Details</Button>
-                    <Button variant="outlined" color="secondary" onClick={e=>{
-                            pickProgramForDelete(row.id)
-                            handleOpenDelete()
-                        }}>Delete Program</Button>
-                </TableCell>
-                </TableRow>
+        } else {
+            if (programs.status) {
+                if (programs.status.toString() === "500") {
+                    return <p>Network Error</p>
+                }
+            } else {
+                return programs.map((row) => (
+                    <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                            {row.id}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                            {row.program_name}
+                        </TableCell>
+                        <TableCell align="right">{row.products_attached}</TableCell>
+                        <TableCell align="right">{row.program_partner}</TableCell>
+                        <TableCell align="right">{row.program_percentage}</TableCell>
+                        <TableCell align="right">1000</TableCell>
+                        <TableCell align="right">
+                            <Button variant="outlined" color="primary">Edit Program</Button>
+                            <Button variant="outlined" color="default" onClick={
+                                e => {
+                                    fetchProgramDetails()
+                                }
+                            }>View Details</Button>
+                            <Button variant="outlined" color="secondary" onClick={e => {
+                                pickProgramForDelete(row.id)
+                                handleOpenDelete()
+                            }}>Delete Program</Button>
+                        </TableCell>
+                    </TableRow>
                 )
-            )
+                )
+            }
         }
     }
 
-    return(
-            <div className={classes.root}>
-            <MiniDrawer/>
+    return (
+        <div className={classes.root}>
+            <MiniDrawer />
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Grid container spacing={3}>
                     <Grid item xs={6} sm={3} md={3} >
-                        <SimpleCard name="Active Programs" figure="3" label="all programs"/>
+                        <SimpleCard name="Active Programs" figure={3} label="all programs" icon={'BusinessCenter'} />
                     </Grid>
                     <Grid item xs={6} sm={3} md={3} >
-                        <SimpleCard name="Active Partnerships" figure="2" label="active partnerships"/>
+                        <SimpleCard name="Active Partnerships" figure="2" label="active partnerships" icon={'GroupWork'} />
                     </Grid>
                     <Grid item xs={6} sm={3} md={3} >
-                        <SimpleCard name="Total % Return" figure="70%" label="percentage return"/>
+                        <SimpleCard name="Total % Return" figure="70%" label="percentage return" icon={'TrendingUp'} />
                     </Grid>
                 </Grid>
 
 
                 <Grid container className="spacer">
                     <Grid container>
-                        <InfoNav title="Loyalty Programs" button="Add Program" onclick={handleOpen}/>
-                        <SimpleTable idcolumn="#" column1="Program Name" column2="Products Attached" column3="Program Partner" column4="Percentage Split" column5="Points Awarded" column6="Actions" rows={constructTable()}/>
+                        <InfoNav title="Loyalty Programs" button="Add Program" onclick={handleOpen} />
+                        <SimpleTable idcolumn="#" column1="Program Name" column2="Products Attached" column3="Program Partner" column4="Percentage Split" column5="Points Awarded" column6="Actions" rows={constructTable()} />
                     </Grid>
                 </Grid>
             </main>
@@ -225,143 +231,143 @@ export const Programs = (props) => {
                 closeAfterTransition
                 BackdropComponent={Backdrop}
                 BackdropProps={{
-                timeout: 500,
+                    timeout: 500,
                 }}
-                >
+            >
                 <Fade in={open}>
-                <div className={classes.paper}>
-                    <h2 id="transition-modal-title">Add New Program</h2>
-                    <p id="transition-modal-description">Please fill in all program details correctly</p>
-                    <form
-                    noValidate autoComplete="off"
-                    onSubmit={e => {
-                        e.preventDefault()
-                        submitProgramData()
-                        }}>
+                    <div className={classes.paper}>
+                        <h2 id="transition-modal-title">Add New Program</h2>
+                        <p id="transition-modal-description">Please fill in all program details correctly</p>
+                        <form
+                            noValidate autoComplete="off"
+                            onSubmit={e => {
+                                e.preventDefault()
+                                submitProgramData()
+                            }}>
 
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={12}>
-                                <TextField value={programName} label="Program Name" variant="outlined" fullWidth onChange={updateProgramName}/>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} sm={12}>
+                                    <TextField value={programName} label="Program Name" variant="outlined" fullWidth onChange={updateProgramName} />
+                                </Grid>
+                                <Grid item xs={12} sm={12}>
+                                    <TextField value={programPercentage} label="Percentage" variant="outlined" fullWidth onChange={updateProgramPercentage} />
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <TextField value={programPercentage} label="Percentage" variant="outlined" fullWidth onChange={updateProgramPercentage}/>
+                            <Grid container spacing={3}>
+                                <Grid item xs={6} sm={6}>
+                                    <TextField value={startDate}
+                                        label="Start Date"
+                                        type="date"
+                                        fullWidth
+                                        onChange={updateStartDate}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }} />
+                                </Grid>
+                                <Grid item xs={6} sm={6}>
+                                    <TextField value={dueDate}
+                                        label="Due Date"
+                                        type="date"
+                                        fullWidth
+                                        onChange={updateDueDate}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }} />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item xs={6} sm={6}>
-                                <TextField value={startDate}
-                                label="Start Date" 
-                                type="date"  
-                                fullWidth 
-                                onChange={updateStartDate}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}/>
-                            </Grid>
-                            <Grid item xs={6} sm={6}>
-                                <TextField value={dueDate}
-                                label="Due Date" 
-                                type="date"  
-                                fullWidth 
-                                onChange={updateDueDate}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}/>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    select
-                                    label="Select "
-                                    value={productsAttached}
-                                    fullWidth
-                                    helperText="Please select the product partner"
-                                    onChange={updateProductsAttached}
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        select
+                                        label="Select "
+                                        value={productsAttached}
+                                        fullWidth
+                                        helperText="Please select the product partner"
+                                        onChange={updateProductsAttached}
                                     >
-                                    {partners.map((option) => (
-                                        <MenuItem key={option.id} value={option.name}>
-                                        {option.name}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    select
-                                    label="Select "
-                                    value={productsAttached}
-                                    fullWidth
-                                    helperText="Please select the related products"
-                                    onChange={updateProductsAttached}
+                                        {(partners === undefined || partners.length === 0) ? partners.map((option) => (
+                                            <MenuItem key={option.id} value={option.name}>
+                                                {option.name}
+                                            </MenuItem>
+                                        )) : null}
+                                    </TextField>
+                                </Grid>
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        select
+                                        label="Select "
+                                        value={productsAttached}
+                                        fullWidth
+                                        helperText="Please select the related products"
+                                        onChange={updateProductsAttached}
                                     >
-                                    {products.map((option) => (
-                                        <MenuItem key={option.id} value={option.name}>
-                                        {option.name}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
+                                        {(products === undefined || products.length === 0) ? products.map((option) => (
+                                            <MenuItem key={option.id} value={option.name}>
+                                                {option.name}
+                                            </MenuItem>
+                                        )) : null}
+                                    </TextField>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item xs={6} sm={6}>
-                                <Button size="large" variant="contained" color="secondary" onClick={handleClose}> 
-                                    Close
+                            <Grid container spacing={3}>
+                                <Grid item xs={6} sm={6}>
+                                    <Button size="large" variant="contained" color="secondary" onClick={handleClose}>
+                                        Close
                                 </Button>
-                            </Grid>
-                            <Grid item xs={6} sm={6}>
-                                <Button type="submit" size="large" variant="contained" color="primary" onClick={handleClose}>
-                                    Submit
+                                </Grid>
+                                <Grid item xs={6} sm={6}>
+                                    <Button type="submit" size="large" variant="contained" color="primary" onClick={handleClose}>
+                                        Submit
                                 </Button>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </form>
-                </div>
+                        </form>
+                    </div>
                 </Fade>
             </Modal>
 
-            {programToDelete==="" ? (
+            {programToDelete === "" ? (
                 null
-            ): (
-            <Modal
-                closeAfterTransition
-                className={classes.modal}
-                BackdropComponent={Backdrop}
-                open={openDeleteModal}
-                onClose={handleCloseDelete}
-                aria-labelledby="simple-modal-delete"
-                aria-describedby="simple-modal-delete"
-            >
-                <div className={classes.paper}>
-                    <h1 id="simple-delete-title">Confirm Program Delete</h1>
-                    <Divider/>
-                    <form
-                    noValidate autoComplete="off"
-                    onSubmit={e => {
-                        e.preventDefault()
-                        executeDeleteProgram(programToDelete)
-                        }}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={12}>
-                                <p>Confirm that you want to delete this program, Cancel otherwise</p>
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item xs={6} sm={6}>
-                                <Button size="large" variant="contained" color="secondary" onClick={handleCloseDelete}> 
-                                    Cancel
+            ) : (
+                    <Modal
+                        closeAfterTransition
+                        className={classes.modal}
+                        BackdropComponent={Backdrop}
+                        open={openDeleteModal}
+                        onClose={handleCloseDelete}
+                        aria-labelledby="simple-modal-delete"
+                        aria-describedby="simple-modal-delete"
+                    >
+                        <div className={classes.paper}>
+                            <h1 id="simple-delete-title">Confirm Program Delete</h1>
+                            <Divider />
+                            <form
+                                noValidate autoComplete="off"
+                                onSubmit={e => {
+                                    e.preventDefault()
+                                    executeDeleteProgram(programToDelete)
+                                }}>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={12} sm={12}>
+                                        <p>Confirm that you want to delete this program, Cancel otherwise</p>
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={3}>
+                                    <Grid item xs={6} sm={6}>
+                                        <Button size="large" variant="contained" color="secondary" onClick={handleCloseDelete}>
+                                            Cancel
                                 </Button>
-                            </Grid>
-                            <Grid item xs={6} sm={6}>
-                                <Button type="submit" size="large" variant="contained" color="primary">
-                                    Confirm
+                                    </Grid>
+                                    <Grid item xs={6} sm={6}>
+                                        <Button type="submit" size="large" variant="contained" color="primary">
+                                            Confirm
                                 </Button>
-                            </Grid>
-                        </Grid>
-                    </form>
-                </div>
-            </Modal>
-            )}
+                                    </Grid>
+                                </Grid>
+                            </form>
+                        </div>
+                    </Modal>
+                )}
         </div>
     )
 }

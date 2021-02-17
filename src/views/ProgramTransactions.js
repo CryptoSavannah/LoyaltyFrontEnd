@@ -42,7 +42,7 @@ export const ProgramTransactions = () => {
         } 
 
         fetchedTransactions();
-    }, [])
+    }, [transactions])
 
     const constructTable = () => {
         if (transactions === undefined || transactions.length === 0){

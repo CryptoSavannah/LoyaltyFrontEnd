@@ -22,7 +22,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import InputBase from '@material-ui/core/InputBase';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Badge from '@material-ui/core/Badge';
 import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -31,6 +31,14 @@ import GroupIcon from '@material-ui/icons/Group';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 240;
 
@@ -151,11 +159,21 @@ const useStyles = makeStyles((theme) => ({
   },
   linkName: {
     marginLeft: 35
-  } 
+  }
 }));
 
 
 export default function MiniDrawer(props) {
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+  const [selectedDate2, setSelectedDate2] = React.useState(new Date());
+
+  const handleDateChange2 = (date) => {
+    setSelectedDate2(date);
+  };
   const classes = useStyles();
   const theme = useTheme();
   const [openDrawer, setOpenDrawer] = React.useState(false);
@@ -166,7 +184,7 @@ export default function MiniDrawer(props) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   useEffect(() => {
-            // console.log('props: '+ JSON.stringify(props.props.history))
+    // console.log('props: '+ JSON.stringify(props.props.history))
 
   })
 
@@ -214,11 +232,11 @@ export default function MiniDrawer(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={e => {logout()}}>Logout</MenuItem>
+      <MenuItem onClick={e => { logout() }}>Logout</MenuItem>
     </Menu>
   );
 
-const mobileMenuId = 'primary-search-account-menu-mobile';
+  const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -235,7 +253,7 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
-          onClick={e => {logout()}}
+          onClick={e => { logout() }}
         >
           <AccountCircle />
         </IconButton>
@@ -282,6 +300,43 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
             />
           </div>
           <div className={classes.grow} />
+          {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="flex-end" style={{ color: "#fff" }}>
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="From Date"
+                format="MM/dd/yyyy"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+                InputProps={{ style: {
+                  color: "#fff",
+                  fontSize: 12},
+                  shrink: true
+                 }}
+                  InputLabelProps={{
+                    shrink: true,
+                    style: {
+                      color: "#fff",
+                      fontSize: 12 }
+                  }}
+              />
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="To Date"
+                format="MM/dd/yyyy"
+                value={selectedDate2}
+                onChange={handleDateChange2}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider> */}
           <div className={classes.sectionDesktop}>
             <IconButton
               edge="end"
@@ -327,24 +382,24 @@ const mobileMenuId = 'primary-search-account-menu-mobile';
         </div>
         <Divider />
         <List>
-            <ListItem>
-                <Link className={classes.link} to="/dashboard">
-                    <ListItemIcon><DashboardIcon/> <ListItemText className={classes.linkName} primary="Dashboard" />
-                    </ListItemIcon> 
-                </Link>
-            </ListItem>
-            <ListItem>
-                <Link className={classes.link} to="/programs">
-                    <ListItemIcon><BusinessCenterIcon/> <ListItemText className={classes.linkName} primary="Programs" />
-                    </ListItemIcon> 
-                </Link>
-            </ListItem>
-            <ListItem>
-                <Link className={classes.link} to="/users">
-                    <ListItemIcon><GroupIcon/> <ListItemText className={classes.linkName} primary="Users" />
-                    </ListItemIcon> 
-                </Link>
-            </ListItem>
+          <ListItem>
+            <Link className={classes.link} to="/dashboard">
+              <ListItemIcon><DashboardIcon /> <ListItemText className={classes.linkName} primary="Dashboard" />
+              </ListItemIcon>
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link className={classes.link} to="/programs">
+              <ListItemIcon><BusinessCenterIcon /> <ListItemText className={classes.linkName} primary="Programs" />
+              </ListItemIcon>
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link className={classes.link} to="/users">
+              <ListItemIcon><GroupIcon /> <ListItemText className={classes.linkName} primary="Users" />
+              </ListItemIcon>
+            </Link>
+          </ListItem>
         </List>
       </Drawer>
       {renderMobileMenu}

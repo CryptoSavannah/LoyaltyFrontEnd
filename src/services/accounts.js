@@ -7,7 +7,7 @@ const token = localStorage.getItem("token");
 const AuthStr = 'Bearer '.concat(token);
 
 export const getLoyaltyUsers = async () => {
-    try{
+    try{// ...need to pass date filters here-------------------------------------------------------------------------------------------
         const {status, data} = await axios.get(`${url}/tenant/loyalty/programs/subscriptions?id=1`, {
             headers: {Authorization: AuthStr}
         })

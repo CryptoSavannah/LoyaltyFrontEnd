@@ -73,21 +73,12 @@ export const Dashboard = (props) => {
 
     }
 
-    fetchedTotalUsers().then(() => {
-      console.log('users after: ',totalUsers)
-    });
+    fetchedTotalUsers();
     fetchedPrograms();
     fetchedPointsAwardeded();
     fetchedPointsRedeemed();
 
-    // if(totalUsers.status){
-    //   if(totalUsers.status.toString() === "500"){
-    //     setSnack({ message: 'Server Error', open: true })
-    //   }
-    //   else{
-    //     setSnack({ message: 'successfuly loaded data', open: true })
-    //   }
-    // }
+    setSnack({ message: 'successfuly loaded data', open: true})
 
   }, [allPrograms, pointsAwardeded, totalUsers, pointsRedeemed])
 
@@ -97,42 +88,22 @@ export const Dashboard = (props) => {
 
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
-        <Grid container justify="center" alignItems="center">
-          <Grid container spacing={3} justify="center" alignItems="center">
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" icon={'BusinessCenter'}/> :
-                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" icon={'BusinessCenter'}/>
+          <Grid container spacing={0} justify="center" alignItems="center">
+            <Grid item xs={12} sm={6} md={4} lg={4}>
+            {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" color="rgb(231,67,133,.5)" /> :
+                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" color="rgb(231,67,133,.5)" />
               }
-
+              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" color="rgb(231,67,133,.5)" /> :
+                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" color="rgb(231,67,133,.5)" />
+              }{loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" color="rgb(231,67,133,.5)" /> :
+              <SimpleCard name="All Programs" figure={allPrograms} label="all programs" color="rgb(231,67,133,.5)" />
+            }
             </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" icon={'Group'}/> :
-                <SimpleCard name="Total Users" figure={totalUsers} label="all users" icon={'Group'}/>
-              }
-            </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" icon={'Loyalty'}/> :
-                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total Points Awarded" icon={'Loyalty'}/>
-              }
-            </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" icon={'Redeem'}/> :
-                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" icon={'Redeem'}/>
-              }
+            <Grid item xs={12} sm={6} md={8} lg={8}>
+              <LineChart/>
             </Grid>
           </Grid>
-
-          <Grid container className="spacer" spacing={3} justify="center" alignItems="center">
-            <Grid item md={6} lg={6} sm={12}>
-              <BarChart />
-            </Grid>
-            <Grid item md={6} lg={6} sm={12}>
-              <LineChart />
-            </Grid>
-          </Grid>
-        </Grid>
-      </main>
+        </main>
 
     </div>
   )
