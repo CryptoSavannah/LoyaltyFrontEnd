@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleTable from '../components/Tables/SimpleTable'
 import Grid from '@material-ui/core/Grid';
@@ -14,22 +14,22 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import Divider from '@material-ui/core/Divider';
 
-import {getLoyaltyUsers, getUserDetails, deleteUser} from '../services/accounts';
+import { getLoyaltyUsers, getUserDetails, deleteUser } from '../services/accounts';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     paper: {
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     },
     toolbar: {
         display: 'flex',
@@ -54,46 +54,52 @@ export const Users = () => {
         const fetchedUsers = async () => {
             setUsers(await getLoyaltyUsers());
             console.log(users)
-        } 
+        }
 
         fetchedUsers();
     }, [])
 
     const constructTable = () => {
-        if (users === undefined || users.length === 0){
+        if (users === undefined || users.length === 0) {
             return <p>Loading...</p>
-        }else{
-            return users.map((row) => (
-                <TableRow key={row.id}>
-                <TableCell component="th" scope="row">
-                    {row.id}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                    {row.related_user.first_name} {row.related_user.last_name}
-                </TableCell>
-                <TableCell align="right">{row.related_user.location}</TableCell>
-                <TableCell align="right">{row.related_user.phone_number}</TableCell>
-                <TableCell align="right">{row.points_earned}</TableCell>
-                <TableCell align="right">{row.card_number}</TableCell>
-                <TableCell align="right">
-                    <Button variant="outlined" color="default">View Details</Button>
-                    <Button variant="outlined" color="secondary">DeActivate User</Button>
-                </TableCell>
-                </TableRow>
+        } else {
+            if (users.status) {
+                if (users.status.toString() === "500") {
+                    return <p>Network Error</p>
+                }
+            } else {
+                return users.map((row) => (
+                    <TableRow key={row.id}>
+                        <TableCell component="th" scope="row">
+                            {row.id}
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                            {row.related_user.first_name} {row.related_user.last_name}
+                        </TableCell>
+                        <TableCell align="right">{row.related_user.location}</TableCell>
+                        <TableCell align="right">{row.related_user.phone_number}</TableCell>
+                        <TableCell align="right">{row.points_earned}</TableCell>
+                        <TableCell align="right">{row.card_number}</TableCell>
+                        <TableCell align="right">
+                            <Button variant="outlined" color="default">View Details</Button>
+                            <Button variant="outlined" color="secondary">DeActivate User</Button>
+                        </TableCell>
+                    </TableRow>
                 )
-            )
+                )
+            }
         }
     }
 
-    return(
-            <div className={classes.root}>
-            <MiniDrawer/>
+    return (
+        <div className={classes.root}>
+            <MiniDrawer />
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Grid container>
                     <Grid container>
-                        <InfoNav title="Users"/>
-                        <SimpleTable idcolumn="#" column1="Name" column2="Location" column3="Contact" column4="Points Accrued" column5="Rating" column6="Actions" rows={constructTable()}/>
+                        <InfoNav title="Users" />
+                        <SimpleTable idcolumn="#" column1="Name" column2="Location" column3="Contact" column4="Points Accrued" column5="Rating" column6="Actions" rows={constructTable()} />
                     </Grid>
                 </Grid>
             </main>

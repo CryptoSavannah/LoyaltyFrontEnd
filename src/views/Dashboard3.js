@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import MiniDrawer from '../components/Drawer/Drawer';
 import PlainNavInfo from '../components/Nav/PlainNavInfo'
-import SimpleCard from '../components/Cards/SimpleCard'
+import SimpleCard from '../components/Cards/SimpleCard2'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import SimpleTable from '../components/Tables/SimpleTable';
@@ -18,6 +18,7 @@ import { SnackbarContext } from '../context/SnackbarContext';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    textDecorationColor: 'white'
   },
   toolbar: {
     display: 'flex',
@@ -73,21 +74,12 @@ export const Dashboard = (props) => {
 
     }
 
-    fetchedTotalUsers().then(() => {
-      console.log('users after: ',totalUsers)
-    });
+    fetchedTotalUsers();
     fetchedPrograms();
     fetchedPointsAwardeded();
     fetchedPointsRedeemed();
 
-    // if(totalUsers.status){
-    //   if(totalUsers.status.toString() === "500"){
-    //     setSnack({ message: 'Server Error', open: true })
-    //   }
-    //   else{
-    //     setSnack({ message: 'successfuly loaded data', open: true })
-    //   }
-    // }
+    setSnack({ message: 'successfuly loaded data', open: true })
 
   }, [allPrograms, pointsAwardeded, totalUsers, pointsRedeemed])
 
@@ -101,24 +93,24 @@ export const Dashboard = (props) => {
         <Grid container justify="center" alignItems="center">
           <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" icon={'BusinessCenter'}/> :
-                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" icon={'BusinessCenter'}/>
+              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" icon={'BusinessCenter'} color="rgb(231,67,133)"/> :
+                <SimpleCard name="All Programs" figure={allPrograms} label="all programs" icon={'BusinessCenter'} color="rgb(231,67,133)"/>
               }
 
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" icon={'Group'}/> :
-                <SimpleCard name="Total Users" figure={totalUsers} label="all users" icon={'Group'}/>
+              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" icon={'Group'} color="rgb(250,197,26)"/> :
+                <SimpleCard name="Total Users" figure={totalUsers} label="all users" icon={'Group'} color="rgb(250,197,26)"/>
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" icon={'Loyalty'}/> :
-                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total Points Awarded" icon={'Loyalty'}/>
+              {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" icon={'Loyalty'} color="rgb(8,188,212)"/> :
+                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total Points Awarded" icon={'Loyalty'} color="rgb(8,188,212)"/>
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" icon={'Redeem'}/> :
-                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" icon={'Redeem'}/>
+              {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" icon={'Redeem'} color="rgb(77,173,81)"/> :
+                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" icon={'Redeem'} color="rgb(77,173,81)"/>
               }
             </Grid>
           </Grid>
