@@ -9,25 +9,40 @@ const data = {
   datasets: [
     {
       label: 'Users Breakdown',
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
+      backgroundColor: 'rgb(63, 81, 181, 0.8)',
+      borderColor: 'rgb(63, 81, 181)',
       borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBorderColor: 'rgba(255,99,132,1)',
+      hoverBackgroundColor: 'rgb(63, 81, 181)',
+      hoverBorderColor: 'rgb(63, 81, 181)',
       data: [65, 90, 80, 18, 20, 80]
     }
-  ]
+  ],
 };
+
+var options = {
+  scales: {
+      xAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }
+      }],
+      yAxes: [{
+          gridLines: {
+              color: "rgba(0, 0, 0, 0)",
+          }   
+      }]
+  }
+}
 
 export default function BarChart(){
 
     return (
         <Card>
-            <CardContent>
+            <CardContent style={{backgroundColor: '#fafafa'}}>
             <Typography>
                    Users 
             </Typography>
-            <Bar data={data} />
+            <Bar data={data} options={options} />
             </CardContent>
         </Card>
     )

@@ -14,7 +14,8 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 12,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    color: 'white'
   },
   title2: {
     fontSize: 15,
@@ -27,7 +28,8 @@ const useStyles = makeStyles({
   details: {
     display: 'flex',
     flexDirection: 'column',
-    width: '60%'
+    width: '60%',
+    color: 'white'
   },
   cover: {
     width: '40%',
@@ -54,16 +56,16 @@ export default function SimpleCard(props) {
     // </Card>
     <Card className={classes.root} style={{backgroundColor: props.color}}>
       <div className={classes.cover}>
-        {props.icon === 'BusinessCenter' && <BusinessCenter fontSize="large"/>}
-        {props.icon === 'Group' && <Group fontSize="large"/>}
-        {props.icon === 'Redeem' && <Redeem fontSize="large"/>}
-        {props.icon === 'Loyalty' && <Loyalty fontSize="large"/>}
-        {props.icon === 'GroupWork' && <GroupWork fontSize="large"/>}
-        {props.icon === 'TrendingUp' && <TrendingUp fontSize="large"/>}
+        {props.icon === 'BusinessCenter' && <BusinessCenter fontSize="large" style={{ color: '#fff' }}/>}
+        {props.icon === 'Group' && <Group fontSize="large" style={{ color: '#fff' }}/>}
+        {props.icon === 'Redeem' && <Redeem fontSize="large" style={{ color: '#fff' }}/>}
+        {props.icon === 'Loyalty' && <Loyalty fontSize="large" style={{ color: '#fff' }}/>}
+        {props.icon === 'GroupWork' && <GroupWork fontSize="large" style={{ color: '#fff' }}/>}
+        {props.icon === 'TrendingUp' && <TrendingUp fontSize="large" style={{ color: '#fff' }}/>}
 
       </div>
       <div className={classes.details}>
-        <Typography color="textSecondary" className={props.name==="All Programs" ? classes.title2 : classes.title}  gutterBottom>
+        <Typography color="textSecondary" className={classes.title}  gutterBottom>
           {props.name}
         </Typography>
         <Typography variant="h3" component="h3">
