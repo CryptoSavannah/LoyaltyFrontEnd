@@ -27,7 +27,7 @@ const data = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40, 70, 60, 55, 45, 80]
+      data: [65, 59, 100, 140, 200, 400, 70, 150, 90, 250, 45, 80]
     },
     {
       label: 'Monthly points redeemed',
@@ -48,7 +48,7 @@ const data = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [2, 9, 20, 17, 19, 35, 30, 31, 20, 7, 15, 50]
+      data: [50, 40, 90, 50, 300, 35, 30, 60, 20, 130, 35, 70]
     }
   ]
 };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const url = 'http://localhost:8000/api/v1'
-const url = 'https://mc1.cryptosavannah.com/api/v1'
+const url = 'http://localhost:8000/api/v1'
+// const url = 'https://mc1.cryptosavannah.com/api/v1'
 
 export const authenticateUser = async (username, password) => {
     try{

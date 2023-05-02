@@ -216,13 +216,13 @@ export const Dashboard = (props) => {
         {/* <Card> */}
         <MuiPickersUtilsProvider utils={DateFnsUtils} style={{ backgroundColor: "#fff", paddingTop: -12 }}>
           <Grid container justify="center" spacing={3} style={{paddingBottom: 10}} >
-            <Grid item item xs={12} sm={6} md={3} lg={3} style={{alignSelf: 'center'}} >
+            <Grid item xs={12} sm={6} md={3} lg={3} style={{alignSelf: 'center'}} >
               <Typography className={classes.title}>
                 Store Summary
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3} item ></Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3} item>
+            <Grid item xs={12} sm={6} md={3} lg={3}></Grid>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
@@ -249,7 +249,7 @@ export const Dashboard = (props) => {
                 }}
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={3} lg={3} item>
+            <Grid item xs={12} sm={6} md={3} lg={3}>
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
@@ -282,23 +282,23 @@ export const Dashboard = (props) => {
         <Grid container justify="center" alignItems="center">
           <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" icon={'BusinessCenter'} color="#f5a310" /> :
+              {loadingPrograms ? <SimpleCard name="All Programs" figure="26" label="all programs" icon={'BusinessCenter'} color="#f5a310" /> :
                 <SimpleCard name="All Programs" figure={allPrograms} label="all programs" icon={'BusinessCenter'} color="#f5a310" />
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingTotalUsers ? <SimpleCard name="Total Users" figure={'...'} label="Total Users" icon={'Group'} color="#3f51b5" /> :
+              {loadingTotalUsers ? <SimpleCard name="Total Users" figure="1,000" label="Total Users" icon={'Group'} color="#3f51b5" /> :
                 <SimpleCard name="Total Users" figure={totalUsers} label="all users" icon={'Group'} color="#3f51b5" />
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
               {loadingTTAwardeded ? <SimpleCard name="Total Points Awarded" figure={'...'} label="Total Points Awarded" icon={'Loyalty'} color="#942391" /> :
-                <SimpleCard name="Total Points Awarded" figure={pointsAwardeded} label="total Points Awarded" icon={'Loyalty'} color="#942391" />
+                <SimpleCard name="Total Points Awarded" figure="500" label="total Points Awarded" icon={'Loyalty'} color="#942391" />
               }
             </Grid>
             <Grid item xs={12} sm={6} md={3} lg={3}>
               {loadingTTRedeemed ? <SimpleCard name="Total Points Redeemed" figure={'...'} label="Total Points Redeemed" icon={'Redeem'} color="#353f49" /> :
-                <SimpleCard name="Total Points Redeemed" figure={pointsRedeemed} label="total points redeemed" icon={'Redeem'} color="#353f49" />
+                <SimpleCard name="Total Points Redeemed" figure="250" label="total points redeemed" icon={'Redeem'} color="#353f49" />
               }
             </Grid>
           </Grid>
