@@ -2,19 +2,21 @@
 
 ## Setup steps
 
-1. Clone the repository
+Clone the repository
 
 ```
-    git clone git@github.com:CryptoSavannah/LoyaltyFrontEnd.git
+git clone git@github.com:CryptoSavannah/LoyaltyFrontEnd.git
+    
+cd LoyaltyFrontEnd
+```
 
-    cd LoyaltyFrontEnd
-
-2. Then install the application
+Then install the application
 
 ```
-    npm install
-
-3. Run the application
+npm install
+```
+Run the application
 
 ```
-    npm run start
+npm run start
+```
