@@ -6,7 +6,9 @@ Clone the repository
 
 ```
 git clone git@github.com:CryptoSavannah/LoyaltyFrontEnd.git
-    
+```
+
+```
 cd LoyaltyFrontEnd
 ```
 
