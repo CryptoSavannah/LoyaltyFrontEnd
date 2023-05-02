@@ -55,3 +55,5 @@ export const deleteUser = async (id) => {
     }
 }
 
+
+404 page not found
