@@ -101,7 +101,7 @@ export const Dashboard = (props) => {
         <Grid container justify="center" alignItems="center">
           <Grid container spacing={3} justify="center" alignItems="center">
             <Grid item xs={12} sm={6} md={3} lg={3}>
-              {loadingPrograms ? <SimpleCard name="All Programs" figure={'...'} label="all programs" icon={'BusinessCenter'}/> :
+              {loadingPrograms ? <SimpleCard name="All Programs" figure="{'...'}" label="all programs" icon={'BusinessCenter'}/> :
                 <SimpleCard name="All Programs" figure={allPrograms} label="all programs" icon={'BusinessCenter'}/>
               }
 
